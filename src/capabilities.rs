@@ -5,6 +5,10 @@ fn to_cap(cap: LinuxCapabilityType) -> Capability {
     unsafe { ::std::mem::transmute(cap) }
 }
 
+fn to_linux_cap(cap: Capability) -> LinuxCapabilityType {
+    unsafe { ::std::mem::transmute(cap) }
+}
+
 fn to_set(caps: &[LinuxCapabilityType]) -> CapsHashSet {
     let mut capabilities = CapsHashSet::new();
     for c in caps {
@@ -29,8 +33,10 @@ pub fn drop_privileges(cs: &LinuxCapabilities) -> ::Result<()> {
     }
     debug!("dropping bounding capabilities to {:?}", cs.bounding);
     // drop excluded caps from the bounding set
-    for c in all.difference(&to_set(&cs.bounding)) {
-        drop(None, CapSet::Bounding, *c)?;
+     for c in all.difference(&to_set(&cs.bounding)) {
+       if !cs.bounding.contains(&to_linux_cap(*c)) {
+           drop(None, CapSet::Bounding, *c)?;
+       }
     }
     // set other sets for current process
     set(None, CapSet::Effective, to_set(&cs.effective))?;

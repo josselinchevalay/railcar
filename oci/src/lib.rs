@@ -123,6 +123,57 @@ pub enum LinuxCapabilityType {
     CAP_AUDIT_READ,
 }
 
+impl PartialEq for LinuxCapabilityType {
+   fn eq(&self, other: &LinuxCapabilityType) -> bool {
+       &self.as_str() == &other.as_str()
+   }
+}
+
+impl LinuxCapabilityType {
+   pub fn as_str(&self) -> &str {
+      match self {
+          &LinuxCapabilityType::CAP_CHOWN => "CAP_CHOWN",
+          &LinuxCapabilityType::CAP_DAC_OVERRIDE => "CAP_DAC_OVERRIDE",
+          &LinuxCapabilityType::CAP_DAC_READ_SEARCH => "CAP_DAC_READ_SEARCH",
+          &LinuxCapabilityType::CAP_FOWNER => "CAP_FOWNER",
+          &LinuxCapabilityType::CAP_FSETID => "CAP_FSETID",
+          &LinuxCapabilityType::CAP_KILL => "CAP_KILL",
+          &LinuxCapabilityType::CAP_SETGID => "CAP_SETGID",
+          &LinuxCapabilityType::CAP_SETUID => "CAP_SETUID",
+          &LinuxCapabilityType::CAP_SETPCAP => "CAP_SETPCAP",
+          &LinuxCapabilityType::CAP_LINUX_IMMUTABLE => "CAP_LINUX_IMMUTABLE",
+          &LinuxCapabilityType::CAP_NET_BIND_SERVICE => "CAP_NET_BIND_SERVICE",
+          &LinuxCapabilityType::CAP_NET_BROADCAST => "CAP_NET_BROADCAST",
+          &LinuxCapabilityType::CAP_NET_ADMIN => "CAP_NET_ADMIN",
+          &LinuxCapabilityType::CAP_NET_RAW => "CAP_NET_RAW",
+          &LinuxCapabilityType::CAP_IPC_LOCK => "CAP_IPC_LOCK",
+          &LinuxCapabilityType::CAP_IPC_OWNER => "CAP_IPC_OWNER",
+          &LinuxCapabilityType::CAP_SYS_MODULE => "CAP_SYS_MODULE",
+          &LinuxCapabilityType::CAP_SYS_RAWIO => "CAP_SYS_RAWIO",
+          &LinuxCapabilityType::CAP_SYS_CHROOT => "CAP_SYS_CHROOT",
+          &LinuxCapabilityType::CAP_SYS_PTRACE => "CAP_SYS_PTRACE",
+          &LinuxCapabilityType::CAP_SYS_PACCT => "CAP_SYS_PACCT",
+          &LinuxCapabilityType::CAP_SYS_ADMIN => "CAP_SYS_ADMIN",
+          &LinuxCapabilityType::CAP_SYS_BOOT => "CAP_SYS_BOOT",
+          &LinuxCapabilityType::CAP_SYS_NICE => "CAP_SYS_NICE",
+          &LinuxCapabilityType::CAP_SYS_RESOURCE => "CAP_SYS_RESOURCE",
+          &LinuxCapabilityType::CAP_SYS_TIME => "CAP_SYS_TIME",
+          &LinuxCapabilityType::CAP_SYS_TTY_CONFIG => "CAP_SYS_TTY_CONFIG",
+          &LinuxCapabilityType::CAP_MKNOD => "CAP_MKNOD",
+          &LinuxCapabilityType::CAP_LEASE => "CAP_LEASE",
+          &LinuxCapabilityType::CAP_AUDIT_WRITE => "CAP_AUDIT_WRITE",
+          &LinuxCapabilityType::CAP_AUDIT_CONTROL => "CAP_AUDIT_CONTROL",
+          &LinuxCapabilityType::CAP_SETFCAP => "CAP_SETFCAP",
+          &LinuxCapabilityType::CAP_MAC_OVERRIDE => "CAP_MAC_OVERRIDE",
+          &LinuxCapabilityType::CAP_MAC_ADMIN => "CAP_MAC_ADMIN",
+          &LinuxCapabilityType::CAP_SYSLOG => "CAP_SYSLOG",
+          &LinuxCapabilityType::CAP_WAKE_ALARM => "CAP_WAKE_ALARM",
+          &LinuxCapabilityType::CAP_BLOCK_SUSPEND => "CAP_BLOCK_SUSPEND",
+          &LinuxCapabilityType::CAP_AUDIT_READ => "CAP_AUDIT_READ",
+      }
+   }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LinuxCapabilities {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
